@@ -49,7 +49,8 @@ class OnePayment {
 	private function getSign(array $data) : string
 	{
 		ksort($data);
-		return $sign = "init_form" . md5( http_build_query($data) ) . $this->api_key;
+		$sign = implode("&", array_map(fn ($key, $value) => $key . "=" . $value, array_keys($data), array_values($data)));
+		return md5( "init_form" . $sign . $this->api_key);
 	}
 
 	public function getForm(bool $debug = false) : string | bool
