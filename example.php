@@ -7,6 +7,10 @@ $onepayment = new OnePayment("partner_id", "project_id", "api_key");
 $result = $onepayment->setData([
 	'amount' => 100, 
 	'description' => "Test Payment"
-])->getForm(debug: true);
+])->getForm(debug: false);
 
-var_dump($result);
+if (!$result) {
+	var_dump($onepayment->getLastError());
+}else{
+	// Redirect to $result;
+}
