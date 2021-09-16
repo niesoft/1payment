@@ -92,7 +92,7 @@ class OnePayment {
 		$result = json_decode($result, true);
 		if (isset($result['error_code'])) $this->lastError = intval($result['error_code']);
 
-		return isset($result['url']) ? $result['url'] : false;
+		return isset($result['url']) && filter_var($result['url'], FILTER_VALIDATE_URL) ? $result['url'] : false;
 	}
 
 	private function arrayToString(array $data) : string
